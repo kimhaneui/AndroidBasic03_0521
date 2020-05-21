@@ -15,6 +15,9 @@ public class MainActivity extends BaseActivity {
 
     ActivityMainBinding binding;
 
+    final int REQ_FOR_PHONE_NUM = 1002;
+    final int REQ_FOR_NICKNAME = 1001;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,13 +29,23 @@ public class MainActivity extends BaseActivity {
     @Override
     public void setupEvents() {
 
+        binding.phoneBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent myintent = new Intent(mContext,UserPhoneActivity.class);
+                startActivityForResult(myintent,REQ_FOR_PHONE_NUM);
+
+            }
+        });
+
         binding.nickNameBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent myintent = new Intent(mContext,EditUserActivity.class);
 
 //                결과를 달라
-                startActivityForResult(myintent,1001);
+                startActivityForResult(myintent,REQ_FOR_NICKNAME);
             }
         });
 
@@ -47,7 +60,7 @@ public class MainActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == 1001){
+        if(requestCode == REQ_FOR_NICKNAME){
             if(resultCode == RESULT_OK){
                 String nick = data.getStringExtra("editNickName");
                 binding.userNickNameTxt.setText(nick);
