@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.androidbasic03_0521.databinding.ActivityMainBinding;
 
@@ -62,9 +63,22 @@ public class MainActivity extends BaseActivity {
 
         if(requestCode == REQ_FOR_NICKNAME){
             if(resultCode == RESULT_OK){
+
                 String nick = data.getStringExtra("editNickName");
+
                 binding.userNickNameTxt.setText(nick);
 
+            }
+        }
+        else if (requestCode == REQ_FOR_PHONE_NUM){
+            if(resultCode == RESULT_OK){
+                if(data != null){
+                       String phoneNum = data.getStringExtra("phone");
+                       binding.userPhoneTxt.setText(phoneNum);
+                }
+            }
+            else{
+                Toast.makeText(mContext, "전화번호 변경을 취소했습니다.", Toast.LENGTH_SHORT).show();
             }
         }
     }

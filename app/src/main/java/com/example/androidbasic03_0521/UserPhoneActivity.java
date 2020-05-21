@@ -28,6 +28,7 @@ public class UserPhoneActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 String inputPhoneNum = binding.phoneNumEdt.getText().toString();
+
                 Intent resultintent = new Intent();
 
                 resultintent.putExtra("phone",inputPhoneNum);
