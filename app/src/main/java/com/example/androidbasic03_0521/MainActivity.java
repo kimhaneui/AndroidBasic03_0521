@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
@@ -31,6 +32,16 @@ public class MainActivity extends BaseActivity {
     @Override
     public void setupEvents() {
 
+        binding.dialBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                전화걸기  => uri 정보 요구
+                Uri myuri = Uri.parse("tel : 010-2335-2543");
+                Intent myIntent = new Intent(Intent.ACTION_DIAL,myuri);
+                startActivity(myIntent);
+
+            }
+        });
         binding.phoneBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,10 +103,15 @@ public class MainActivity extends BaseActivity {
         }
         else if(requestCode == REQ_FOR_EMAIL){
             if(resultCode == RESULT_OK){
+                if(data !=null){
+                    String mail = data.getStringExtra("email");
 
-                String mail = data.getStringExtra("email");
+                    binding.emailTxt.setText(mail);
+                }
+                else{
+                    Toast.makeText(mContext, "이메일 변경을 취소했습니다", Toast.LENGTH_SHORT).show();
+                }
 
-                binding.emailTxt.setText(mail);
             }
         }
     }
