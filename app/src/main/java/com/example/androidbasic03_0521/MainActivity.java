@@ -100,7 +100,7 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Intent myintent = new Intent(mContext,EmailActivity.class);
-                startActivity(myintent);
+                startActivityForResult(myintent,REQ_FOR_EMAIL);
             }
         });
 
