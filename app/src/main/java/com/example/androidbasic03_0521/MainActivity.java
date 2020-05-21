@@ -32,6 +32,17 @@ public class MainActivity extends BaseActivity {
     @Override
     public void setupEvents() {
 
+        binding.smsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                문자전송하기
+                String dialPhoneNum = binding.userPhoneTxt.getText().toString();
+                Uri myuri = Uri.parse(String.format("smsto:%s",dialPhoneNum));
+                Intent myIntent = new Intent(Intent.ACTION_SENDTO,myuri);
+                myIntent.putExtra("sms_body","텍스트 문자 내용");
+                startActivity(myIntent);
+            }
+        });
         binding.callBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
